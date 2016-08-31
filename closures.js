@@ -11,14 +11,12 @@ var outer = function(){
 // Above you're given a function that returns another function which has a closure over the name variable.
 // Invoke outer saving the return value into another variable called 'inner'.
 
-var inner = function(){
-  return function(){
-  }
-};
+var inner = outer();
+
 
 
 //Once you do that, invoke inner.
-
+inner();
 
 
 
@@ -40,9 +38,8 @@ var callFriend = function(){
 // Create a makeCall function that when invoked logs  'Calling Jake at 435-215-9248' in your console.
 
 var makeCall = function(){
-  return function(){
-  }
-};
+  return callF();
+}
 
 
 
@@ -57,19 +54,19 @@ var makeCall = function(){
 /*
   Write a function called makeCounter that makes the following code work properly.
 */
+function makeCounter(){
+  var counter=0;
+  return function(){
+    return ++counter;
+  }
+}
 
- var makeCounter = function(){
-    var count = ++;
-     function count(){
-       return function();
-       }
-     };
-Uncomment this once you make your function
+
    var count = makeCounter();
-   count();  1
-   count();  2
-   count();  3
-   count();  4
+   count(); // 1
+   count(); // 2
+   count(); // 3
+   count(); // 4
 
 
 
@@ -83,13 +80,15 @@ Uncomment this once you make your function
 // You will need to use the module pattern to achieve this.
 
 function counterFactory(value) {
-
-  // Code here.
-
-
-  return {
-  }
-}
+     return{
+       inc: function() {
+         return ++value;
+       },
+       dec: function() {
+         return --value;
+       }
+     }
+   }
 
 
 counter = counterFactory(10);
@@ -106,12 +105,14 @@ counter = counterFactory(10);
 
     var welcomeText = 'You\'re doing awesome, keep it up ';
 
-    // code message function here.
+    function message(){
+      return welcomeText + firstname + ' ' + lastname + '.';
+    }
 
 
     //Uncommment this to return the value of your invoked message function
 
-    //return message()
+    return message()
   }
 
   motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
@@ -137,13 +138,16 @@ counter = counterFactory(10);
     // Anything that is being returned is made public and can be invoked from outside our lexical scope
 
     return {
-      // Code here.
+      publicMethod: function(){
+        return privateMethod();
+      }
+
     };
 
   })();
 
 //Uncomment this after you create your public method
-//   module.publicMethod();
+   module.publicMethod();
 
 
 
